@@ -7,7 +7,11 @@ import 'nprogress/nprogress.css';
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
-        redirect: '/dashboard',
+        meta: {
+            title: '首页',
+            noAuth: true,
+        },
+        component: () => import(/* webpackChunkName: "home" */ '../views/home/index.vue'),
     },
     {
         path: '/',
