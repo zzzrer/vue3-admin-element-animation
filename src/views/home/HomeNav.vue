@@ -1,10 +1,25 @@
 <template>
     <div class="home_nav">
-        <p v-show="topSpan" class="home_top_text flex align_center justify_center">
-            <span>
-                Bvlgari at Your Fingertips: Schedule a Virtual Appointment Today.
-            </span>
-        </p>
+        <div v-show="topSpan" class="home_top_text flex align_center justify_center">
+            <div style="width:50%">
+                <el-carousel motion-blur height='20px' :autoplay='false' arrow="always">
+                    <el-carousel-item>
+                        <div class="flex align_center justify_center">
+                            <span style="width:80%;text-align:center;">
+                                Bvlgari at Your Fingertips: Schedule a Virtual Appointment Today.
+                            </span>
+                        </div>
+                    </el-carousel-item>
+                    <el-carousel-item>
+                        <div class="flex align_center justify_center">
+                            <span style="width:80%;text-align:center;">
+                                Bvlgari at Your Fingertips: Schedule a Virtual Appointment Today.
+                            </span>
+                        </div>
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+        </div>
         <nav class="home_top_nav flex align_center justify_between" ref="home_top_nav">
             <span>Menu</span>
             <span>BLVGARI</span>
@@ -78,6 +93,10 @@ defineExpose({
     background: transparent !important;
     color: #fff;
 }
+.hide_back:hover {
+    background-color: #fff !important;
+    color: #000;
+}
 .show_height {
     height: 64px !important;
 }
@@ -85,7 +104,6 @@ defineExpose({
     height: 20px;
     padding: 10px;
     background-color: #fff;
-    
 }
 .home_top_nav {
     overflow: hidden;
@@ -105,6 +123,10 @@ defineExpose({
 }
 .justify_center {
     justify-content: center;
+}
+::v-deep .el-carousel__arrow {
+    background: none;
+    color: #000;
 }
 </style>
 

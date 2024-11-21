@@ -2,6 +2,7 @@
     <div class="content" ref="home_content">
         <HomeNav ref="home_nav"></HomeNav>
         <HomeBanner :show-list="imagesList"></HomeBanner>
+        <AnimationFold ref="animation_fold"></AnimationFold>
         <AnimationCard ref="animation_card"></AnimationCard>
         <AnimationClose ref="animation_close"></AnimationClose>
     </div>
@@ -13,12 +14,15 @@ import { ref, onMounted } from "vue";
 import HomeNav from "./HomeNav.vue";
 import HomeBanner from "./HomeBanner.vue";
 import AnimationCard from "./AnimationCard.vue";
-import AnimationClose from './AnimationClose.vue';
+import AnimationClose from "./AnimationClose.vue";
+import AnimationFold from "./AnimationFold.vue";
 const a = ref(0);
 const home_content = ref(null);
 const home_nav = ref(null);
 const animation_card = ref(null);
 const animation_close = ref(null);
+const animation_fold = ref(null);
+
 const imagesList = ref([
     {
         src: new URL(
@@ -48,6 +52,9 @@ onMounted(() => {
         }
         if (animation_close.value) {
             animation_close.value.parentScrollChange(event);
+        }
+        if (animation_fold.value) {
+            animation_fold.value.parentScrollChange(event);
         }
     }
 

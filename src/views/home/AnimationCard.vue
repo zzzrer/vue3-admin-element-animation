@@ -11,13 +11,13 @@
                     </div>
                 </div>
                 <div class="img_div_2">
-                    <div class="card_square">
+                    <div class="card_square" ref="card_square_01">
                         <img class="img" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
                     </div>
-                    <div class="card_square">
+                    <div class="card_square" ref="card_square_02">
                         <img class="img" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
                     </div>
-                    <div class="card_square">
+                    <div class="card_square" ref="card_square_03">
                         <img class="img" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
                     </div>
                 </div>
@@ -29,28 +29,40 @@
 
 <script setup lang="ts" name="AnimationCard">
 //不需要暴露对象
-import { ref } from "vue";
-const isResizeH = ref(false);
+import { ref, onMounted } from "vue";
+
 const animation_card = ref(null);
 const fixed_div = ref(null);
+const card_square_01 = ref(null);
+const card_square_02 = ref(null);
+const card_square_03 = ref(null);
 const parentScrollChange = (event) => {
     // console.log("event AnimationCard:>> ", event);
-    const top = animation_card.value?.getBoundingClientRect().top ?? 0;
-    const height = animation_card.value?.getBoundingClientRect().height ?? 0;
-    if (event && top <= 0 && top >= -height) {
-        if (!isResizeH.value) {
-            isResizeH.value = true;
-            animation_card.value.style.height = height + "px";
-        }
+    const cardTop = animation_card.value?.getBoundingClientRect().top ?? 0;
+    const cardHeight =
+        animation_card.value?.getBoundingClientRect().height ?? 0;
+    if (event && cardTop <= 0 && cardTop >= -cardHeight) {
         fixed_div.value.style.position = "absolute";
-        fixed_div.value.style.top = 0 - top + "px";
-        fixed_div.value.style["z-index"] = "-1";
+        fixed_div.value.style.top = 0 - cardTop + "px";
+        fixed_div.value.style["z-index"] = "3";
         fixed_div.value.classList.add("padding_5");
     } else {
         fixed_div.value.classList.remove("padding_5");
         fixed_div.value.style.position = "relative";
-        animation_card.value.classList.remove("fixed");
-        isResizeH.value = false;
+    }
+    if (card_square_01) {
+        const h001 = card_square_01.value?.getBoundingClientRect().width ?? 0;
+        console.log("h001 :>> ", h001);
+
+        card_square_01.value.style.height = h001 + "px";
+    }
+    if (card_square_02) {
+        const h002 = card_square_02.value?.getBoundingClientRect().width ?? 0;
+        card_square_02.value.style.height = h002 + "px";
+    }
+    if (card_square_03) {
+        const h003 = card_square_03.value?.getBoundingClientRect().width ?? 0;
+        card_square_03.value.style.height = h003 + "px";
     }
 };
 defineExpose({
@@ -63,8 +75,8 @@ div {
     box-sizing: border-box;
 }
 .animation_card {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     padding: 5rem;
     position: relative;
 }
@@ -104,21 +116,19 @@ div {
     width: 55%;
 }
 .img_div_2 {
-    height: 350px;
+    height: fit-content;
     display: flex;
     justify-content: space-between;
 }
 .card_square {
-    height: 350px;
-    width: 350px;
+    height: 100px;
+    width: 30%;
     overflow: hidden;
     position: relative;
 }
 .img {
     height: 100%;
     width: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
+    object-fit: cover;
 }
 </style>

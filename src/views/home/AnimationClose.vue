@@ -1,10 +1,10 @@
 <template>
-    <div class="card_close" ref="card_close">
-        <div class="inline_block w_50 position_relative h_100">
+    <div class="card_close bg_fff" ref="card_close">
+        <div class="inline_block w_50 position_relative h_100 bg_fff" style="z-index:4">
             <img class="img position_absolute left_box h_100" ref="left_box" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
         </div>
-        <div class="inline_block position_relative w_50 h_100">
-            <div class="position_absolute right_box w_100 h_auto" ref="right_box">
+        <div class="inline_block position_relative w_50 h_100 bg_fff" style="z-index:4">
+            <div class="position_absolute right_box w_100 h_auto overflow_hidden" ref="right_box">
                 <h2 class="title">Holiday Season Services</h2>
                 <p class="content_text">From personalized messages to elegant gift boxes and extended returns periods, Bvlgari elevates the gesture of gift-giving to an art form with exclusive curated services designed to offer a memorable experience. </p>
                 <a href="" class="link">Discover the services</a>
@@ -22,15 +22,15 @@ const right_box = ref(null);
 
 const parentScrollChange = (event) => {
     if (event) {
-        const top = card_close.value?.getBoundingClientRect().top ?? 0;
-        const height =
+        const closeTop = card_close.value?.getBoundingClientRect().top ?? 0;
+        const closeHeight =
             window.innerHeight || document.documentElement.clientHeight;
-        const percent = top / height;
+        const percent = closeTop / closeHeight;
         if (1 > percent && percent >= 0) {
             left_box.value.style.right =
-                (percent < 0.5 ? 0 : percent) * 100 + "%";
+                (percent < 0.2 ? 0 : percent) * 100 + "%";
             right_box.value.style.left =
-                (percent < 0.5 ? 0 : percent) * 100 + "%";
+                (percent < 0.2 ? 0 : percent) * 100 + "%";
         }
     }
 };
@@ -40,6 +40,9 @@ defineExpose({
 </script>
 
 <style scoped>
+div {
+    box-sizing: border-box;
+}
 .card_close {
     height: 100vh;
     width: 100vw;
@@ -99,5 +102,14 @@ defineExpose({
 }
 .h_auto {
     height: fit-content;
+}
+.bg_fff {
+    background-color: #fff !important;
+}
+.overflow_hidden {
+    overflow: hidden;
+}
+.w_100 {
+    width: 100%;
 }
 </style>
