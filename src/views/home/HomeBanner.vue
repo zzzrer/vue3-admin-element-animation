@@ -88,7 +88,7 @@ defineExpose({
     position: absolute;
     top: 0px;
     left: 0px;
-    background-color: #000;
+    background-color: #fff;
     transition: all 1s ease-in-out;
     opacity: 0;
 }
