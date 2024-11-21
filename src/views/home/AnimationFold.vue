@@ -43,7 +43,7 @@ const parentScrollChange = (event) => {
         showSecondTime,
         showSecondTime - foldHeight
     );
-    if (foldTop < foldHeight && foldTop > 0) {
+    if (event && foldTop < foldHeight && foldTop > 0) {
         fold_fixed.value.style.top = 0 + "px";
         fold_fixed.value.style.position = "relative";
         if (showSecondTime > 260) {

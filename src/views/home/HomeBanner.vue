@@ -1,5 +1,5 @@
 <template>
-    <div class="home_banner">
+    <div class="home_banner" ref="home_banner">
         <el-carousel motion-blur height='106vh'>
             <el-carousel-item v-for="(item,index) in showList" :key="'banner_' + index">
                 <div>
@@ -12,6 +12,7 @@
                 </div>
             </el-carousel-item>
         </el-carousel>
+        <div class="overlay" ref="overlay">19999999999999</div>
     </div>
 </template>
 
@@ -25,6 +26,48 @@ const props = defineProps({
         default: () => [],
     },
 });
+const overlay = ref(null);
+const parentScrollChange = (event) => {
+    if (event && overlay) {
+        const overlayTop = overlay.value.getBoundingClientRect().top;
+        const overlayHeight = overlay.value.getBoundingClientRect().height;
+        const half = overlayHeight / 3;
+        if (overlayTop * -1 > half) {
+            const percent = (overlayTop * -1) / overlayHeight;
+            console.log("percent :>> ", percent);
+            if (percent > 0 && percent <= 0.25) {
+                overlay.value.classList.remove("opacity_50");
+                overlay.value.classList.remove("opacity_75");
+                overlay.value.classList.remove("opacity_100");
+                overlay.value.classList.add("opacity_25");
+            } else if (percent > 0.25 && percent <= 0.5) {
+                overlay.value.classList.remove("opacity_25");
+                overlay.value.classList.remove("opacity_75");
+                overlay.value.classList.remove("opacity_100");
+                overlay.value.classList.add("opacity_50");
+            } else if (percent > 0.5 && percent <= 0.75) {
+                overlay.value.classList.remove("opacity_25");
+                overlay.value.classList.remove("opacity_50");
+                overlay.value.classList.remove("opacity_100");
+                overlay.value.classList.add("opacity_75");
+            } else if (percent > 0.75 && percent <= 1) {
+                overlay.value.classList.remove("opacity_25");
+                overlay.value.classList.remove("opacity_50");
+                overlay.value.classList.remove("opacity_75");
+                overlay.value.classList.add("opacity_100");
+            }
+        } else {
+            overlay.value.classList.remove("opacity_25");
+            overlay.value.classList.remove("opacity_50");
+            overlay.value.classList.remove("opacity_75");
+            overlay.value.classList.remove("opacity_100");
+        }
+    } else {
+    }
+};
+defineExpose({
+    parentScrollChange,
+});
 </script>
 
 <style scoped>
@@ -32,11 +75,34 @@ const props = defineProps({
     margin-top: 40px;
     height: 106vh;
     width: 100vw;
+    position: relative;
 }
 .img {
     height: 100%;
     object-fit: cover;
     width: 100%;
+}
+.overlay {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #000;
+    transition: all 1s ease-in-out;
+    opacity: 0;
+}
+.opacity_25 {
+    opacity: 0.25;
+}
+.opacity_50 {
+    opacity: 0.5;
+}
+.opacity_75 {
+    opacity: 0.75;
+}
+.opacity_100 {
+    opacity: 1;
 }
 .fold_text {
     position: absolute;

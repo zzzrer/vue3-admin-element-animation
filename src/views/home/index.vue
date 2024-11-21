@@ -1,7 +1,7 @@
 <template>
     <div class="content" ref="home_content">
         <HomeNav ref="home_nav"></HomeNav>
-        <HomeBanner :show-list="imagesList"></HomeBanner>
+        <HomeBanner :show-list="imagesList" ref="home_banner"></HomeBanner>
         <AnimationFold ref="animation_fold"></AnimationFold>
         <AnimationCard ref="animation_card"></AnimationCard>
         <AnimationClose ref="animation_close"></AnimationClose>
@@ -22,6 +22,7 @@ const home_nav = ref(null);
 const animation_card = ref(null);
 const animation_close = ref(null);
 const animation_fold = ref(null);
+const home_banner = ref(null); 
 
 const imagesList = ref([
     {
@@ -55,6 +56,9 @@ onMounted(() => {
         }
         if (animation_fold.value) {
             animation_fold.value.parentScrollChange(event);
+        }
+        if (home_banner.value) {
+            home_banner.value.parentScrollChange(event);
         }
     }
 
