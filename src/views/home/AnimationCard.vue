@@ -1,29 +1,34 @@
 <template>
     <div class="animation_card" ref="animation_card">
-        <div class="fixed_div" ref="fixed_div">
-            <div class="flex flex_column h-100">
-                <div class="img_div_1">
-                    <div class="card">
+        <div style="padding:0px 1rem;" class="fixed_div" ref="fixed_div">
+            <el-row>
+                <el-col :xs='24' :sm='8' :lg='8'>
+                    <div class="card" ref="card_01">
                         <img class="img" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
                     </div>
-                    <div class="card">
+                </el-col>
+                <el-col :xs='24' :sm='16' :lg='16'>
+                    <div class="card" ref="card_02">
                         <img class="img" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
                     </div>
-                </div>
-                <div class="img_div_2">
+                </el-col>
+                <el-col :xs='24' :sm='8' :lg='8'>
                     <div class="card_square" ref="card_square_01">
                         <img class="img" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
                     </div>
+                </el-col>
+                <el-col :xs='24' :sm='8' :lg='8'>
                     <div class="card_square" ref="card_square_02">
                         <img class="img" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
                     </div>
+                </el-col>
+                <el-col :xs='24' :sm='8' :lg='8'>
                     <div class="card_square" ref="card_square_03">
                         <img class="img" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
                     </div>
-                </div>
-            </div>
+                </el-col>
+            </el-row>
         </div>
-
     </div>
 </template>
 
@@ -36,33 +41,43 @@ const fixed_div = ref(null);
 const card_square_01 = ref(null);
 const card_square_02 = ref(null);
 const card_square_03 = ref(null);
+const card_01 = ref(null);
+const card_02 = ref(null);
+
 const parentScrollChange = (event) => {
     // console.log("event AnimationCard:>> ", event);
     const cardTop = animation_card.value?.getBoundingClientRect().top ?? 0;
+
     const cardHeight =
         animation_card.value?.getBoundingClientRect().height ?? 0;
     if (event && cardTop <= 0 && cardTop >= -cardHeight) {
-        fixed_div.value.style.position = "absolute";
-        fixed_div.value.style.top = 0 - cardTop + "px";
-        fixed_div.value.style["z-index"] = "3";
-        fixed_div.value.classList.add("padding_5");
-    } else {
-        fixed_div.value.classList.remove("padding_5");
-        fixed_div.value.style.position = "relative";
-    }
-    if (card_square_01) {
-        const h001 = card_square_01.value?.getBoundingClientRect().width ?? 0;
-        console.log("h001 :>> ", h001);
+        animation_card.value.style.height = cardHeight + "px";
 
+        fixed_div.value.style.position = "absolute";
+        fixed_div.value.style['top'] = 0 - cardTop + "px";
+        fixed_div.value.style["z-index"] = "3";
+    } else {
+        fixed_div.value.style.position = "relative";
+        fixed_div.value.style.removeProperty("top");
+        animation_card.value.style.removeProperty("height");
+    }
+
+    const h001 = card_square_01.value?.getBoundingClientRect().width ?? 0;
+    if (card_02) {
+        card_02.value.style.height = h001 + "px";
+    }
+    if (card_01) {
+        card_01.value.style.height = h001 + "px";
+    }
+
+    if (card_square_01) {
         card_square_01.value.style.height = h001 + "px";
     }
     if (card_square_02) {
-        const h002 = card_square_02.value?.getBoundingClientRect().width ?? 0;
-        card_square_02.value.style.height = h002 + "px";
+        card_square_02.value.style.height = h001 + "px";
     }
     if (card_square_03) {
-        const h003 = card_square_03.value?.getBoundingClientRect().width ?? 0;
-        card_square_03.value.style.height = h003 + "px";
+        card_square_03.value.style.height = h001 + "px";
     }
 };
 defineExpose({
@@ -76,14 +91,12 @@ div {
 }
 .animation_card {
     width: 100vw;
-    height: 100vh;
-    padding: 5rem;
     position: relative;
 }
 .card {
-    height: 100%;
     overflow: hidden;
     position: relative;
+    padding: 4rem 2rem 2rem 2rem;
 }
 .fixed_div {
     width: 100%;
@@ -121,14 +134,15 @@ div {
     justify-content: space-between;
 }
 .card_square {
-    height: 100px;
-    width: 30%;
     overflow: hidden;
     position: relative;
+    padding: 2rem 2rem 4rem 2rem;
 }
 .img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.2),
+        /* 内层阴影 */ -12px 12px 16px rgba(0, 0, 0, 0.5); /* 外层阴影 */
 }
 </style>

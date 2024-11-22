@@ -1,13 +1,13 @@
 <template>
     <div class="home_banner" ref="home_banner">
-        <el-carousel motion-blur height='106vh'>
+        <el-carousel motion-blur :autoplay='false' height='106vh' arrow="always">
             <el-carousel-item v-for="(item,index) in showList" :key="'banner_' + index">
-                <div>
+                <div class="h_100">
                     <img :src="item.src" alt="加载中...." class="img" style="" />
-                    <div class="fold_text">
-                        <h2 class="title">Holiday Season Services</h2>
-                        <p class="content_text">Embrace the Bvlgari holiday spirit with iconic gifts full of magic and sparkle.</p>
-                        <a href="" class="link">Discover the services</a>
+                    <div class="fold_text" ref="fold_text">
+                        <h2 class="title">{{item.title}}</h2>
+                        <p class="content_text">{{item.content}}</p>
+                        <a href="" class="link">{{item.link}}</a>
                     </div>
                 </div>
             </el-carousel-item>
@@ -27,7 +27,20 @@ const props = defineProps({
     },
 });
 const overlay = ref(null);
+const fold_text = ref(null);
+
 const parentScrollChange = (event) => {
+    const innerWidth =
+        window.innerWidth || document.documentElement.clientWidth;
+    if (innerWidth < 768) {
+        fold_text.value.forEach((element) => {
+            element.classList.add("w_100");
+        });
+    } else {
+        fold_text.value.forEach((element) => {
+            element.classList.remove("w_100");
+        });
+    }
     if (event && overlay) {
         const overlayTop = overlay.value.getBoundingClientRect().top;
         const overlayHeight = overlay.value.getBoundingClientRect().height;
@@ -106,13 +119,17 @@ defineExpose({
 }
 .fold_text {
     position: absolute;
-    width: 100%;
+    box-sizing: border-box;
     height: fit-content;
     bottom: 6vh;
     padding: 2.5rem 5rem;
     width: 50%;
     left: 0px;
 }
+.w_100 {
+    width: 100%;
+}
+
 .fold_text h2 {
     font-size: 2.25rem;
     font-weight: 300;
@@ -129,5 +146,8 @@ defineExpose({
     padding-bottom: 0.625rem;
     min-height: 3rem;
     color: #000;
+}
+.h_100 {
+    height: 100%;
 }
 </style>

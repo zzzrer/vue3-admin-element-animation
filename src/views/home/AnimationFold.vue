@@ -34,15 +34,19 @@ const fold_fixed_02 = ref(null);
 const animation_fold = ref(null);
 
 const parentScrollChange = (event) => {
+    const innerWidth =
+        window.innerWidth || document.documentElement.clientWidth;
+    if (innerWidth < 768) {
+        box_01.value.classList.add("w_100");
+        box_02.value.classList.add("w_100");
+    } else {
+        box_01.value.classList.remove("w_100");
+        box_02.value.classList.remove("w_100");
+    }
     const foldTop = fold_p.value?.getBoundingClientRect().top ?? 0;
     const foldHeight = fold_p.value?.getBoundingClientRect().height ?? 0;
 
     const showSecondTime = foldHeight - foldTop;
-    console.log(
-        "showSecondTime :>> ",
-        showSecondTime,
-        showSecondTime - foldHeight
-    );
     if (event && foldTop < foldHeight && foldTop > 0) {
         fold_fixed.value.style.top = 0 + "px";
         fold_fixed.value.style.position = "relative";
@@ -93,9 +97,6 @@ div {
 .h_100 {
     height: 100%;
 }
-.w_100 {
-    width: 100vw;
-}
 .animation_fold {
     width: 100vw;
     height: 100vh;
@@ -110,12 +111,14 @@ div {
 }
 .fold_text {
     position: absolute;
-    width: 100%;
     height: fit-content;
     top: 0px;
     padding: 2.5rem 5rem;
     width: 50%;
     left: 0px;
+}
+.w_100 {
+    width: 100vw;
 }
 .fold_text h2 {
     font-size: 2.25rem;
