@@ -1,11 +1,11 @@
 <template>
     <div class="home_nav">
         <div v-show="topSpan" class="home_top_text flex align_center justify_center">
-            <div style="width:50%">
-                <el-carousel motion-blur height='20px' :autoplay='false' arrow="always">
+            <div :style="{'width':width}">
+                <el-carousel motion-blur :height='width === "50%"?"20px":"40px"' :autoplay='false' arrow="always">
                     <el-carousel-item>
-                        <div class="flex align_center justify_center">
-                            <span style="width:80%;text-align:center;">
+                        <div class="flex align_center justify_center" style="height:100%">
+                            <span style="width:80%;height:100%;text-align:center;" class="flex align_center justify_center">
                                 Bvlgari at Your Fingertips: Schedule a Virtual Appointment Today.
                             </span>
                         </div>
@@ -40,10 +40,12 @@
 
 <script setup lang="ts" name="HomeNav">
 //不需要暴露对象
-import { ref, onMounted, getCurrentInstance } from "vue";
+import { ref, onMounted, getCurrentInstance, computed } from "vue";
 const topSpan = ref(false);
 let scroll = ref(0);
 const home_top_nav = ref(null);
+
+const width = ref("50%");
 
 onMounted(() => {
     const instance = getCurrentInstance();
@@ -69,12 +71,20 @@ const parentScrollChange = (event) => {
             home_top_nav.value.classList.remove("hide_back");
         }, 500);
     }
-    console.log("scrollValue,scroll.value :>> ", scrollValue, scroll.value);
+
     scroll.value = JSON.parse(JSON.stringify(scrollValue));
     if (scrollValue === 0) {
         topSpan.value = true;
     } else {
         topSpan.value = false;
+    }
+
+    const innerWidth =
+        window.innerWidth || document.documentElement.clientWidth;
+    if (innerWidth < 769) {
+        width.value = "100%";
+    } else {
+        width.value = "50%";
     }
 };
 defineExpose({

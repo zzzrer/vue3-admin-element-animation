@@ -46,20 +46,35 @@ const card_02 = ref(null);
 
 const parentScrollChange = (event) => {
     // console.log("event AnimationCard:>> ", event);
-    const cardTop = animation_card.value?.getBoundingClientRect().top ?? 0;
+    // const cardTop = animation_card.value?.getBoundingClientRect().top ?? 0;
 
-    const cardHeight =
-        animation_card.value?.getBoundingClientRect().height ?? 0;
-    if (event && cardTop <= 0 && cardTop >= -cardHeight) {
-        animation_card.value.style.height = cardHeight + "px";
+    // const cardHeight =
+    //     animation_card.value?.getBoundingClientRect().height ?? 0;
+    // if (event && cardTop <= 0 && cardTop >= -cardHeight) {
+    //     animation_card.value.style.height = cardHeight + "px";
 
-        fixed_div.value.style.position = "absolute";
-        fixed_div.value.style['top'] = 0 - cardTop + "px";
-        fixed_div.value.style["z-index"] = "3";
+    //     fixed_div.value.style.position = "absolute";
+    //     fixed_div.value.style['top'] = 0 - cardTop + "px";
+    //     fixed_div.value.style["z-index"] = "3";
+    // } else {
+    //     fixed_div.value.style.position = "relative";
+    //     fixed_div.value.style.removeProperty("top");
+    //     animation_card.value.style.removeProperty("height");
+    // }
+    const innerWidth =
+        window.innerWidth || document.documentElement.clientWidth;
+    if (innerWidth < 769) {
+        card_02.value.classList.add("padding_p");
+        card_01.value.classList.add("padding_p");
+        card_square_01.value.classList.add("padding_p");
+        card_square_02.value.classList.add("padding_p");
+        card_square_03.value.classList.add("padding_p");
     } else {
-        fixed_div.value.style.position = "relative";
-        fixed_div.value.style.removeProperty("top");
-        animation_card.value.style.removeProperty("height");
+        card_02.value.classList.remove("padding_p");
+        card_01.value.classList.remove("padding_p");
+        card_square_01.value.classList.remove("padding_p");
+        card_square_02.value.classList.remove("padding_p");
+        card_square_03.value.classList.remove("padding_p");
     }
 
     const h001 = card_square_01.value?.getBoundingClientRect().width ?? 0;
@@ -103,8 +118,8 @@ div {
     height: 100%;
     left: 0px;
 }
-.padding_5 {
-    padding: 5rem;
+.padding_p {
+    padding: 1.5rem !important;
 }
 .flex {
     display: flex;

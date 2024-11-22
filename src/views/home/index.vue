@@ -5,6 +5,7 @@
         <AnimationFold ref="animation_fold"></AnimationFold>
         <AnimationCard ref="animation_card"></AnimationCard>
         <AnimationClose ref="animation_close"></AnimationClose>
+        <LoginSpan ref="login_span"></LoginSpan>
         <FooterTemp></FooterTemp>
     </div>
 </template>
@@ -17,7 +18,8 @@ import HomeBanner from "./HomeBanner.vue";
 import AnimationCard from "./AnimationCard.vue";
 import AnimationClose from "./AnimationClose.vue";
 import AnimationFold from "./AnimationFold.vue";
-import FooterTemp from './FooterTemp.vue';
+import FooterTemp from "./FooterTemp.vue";
+import LoginSpan from "./LoginSpan.vue";
 const a = ref(0);
 const home_content = ref(null);
 const home_nav = ref(null);
@@ -25,7 +27,7 @@ const animation_card = ref(null);
 const animation_close = ref(null);
 const animation_fold = ref(null);
 const home_banner = ref(null);
-
+const login_span = ref(null);
 const imagesList = ref([
     {
         src: new URL(
@@ -62,14 +64,17 @@ onMounted(() => {
         if (animation_card.value) {
             animation_card.value.parentScrollChange(event);
         }
-        // if (animation_close.value) {
-        //     animation_close.value.parentScrollChange(event);
-        // }
+        if (animation_close.value) {
+            animation_close.value.parentScrollChange(event);
+        }
         if (animation_fold.value) {
             animation_fold.value.parentScrollChange(event);
         }
         if (home_banner.value) {
             home_banner.value.parentScrollChange(event);
+        }
+        if (login_span.value) {
+            login_span.value.parentScrollChange(event);
         }
     }
     // 防抖
@@ -82,14 +87,17 @@ onMounted(() => {
             if (animation_card.value) {
                 animation_card.value.parentScrollChange(event);
             }
-            // if (animation_close.value) {
-            //     animation_close.value.parentScrollChange(event);
-            // }
+            if (animation_close.value) {
+                animation_close.value.parentScrollChange(event);
+            }
             if (animation_fold.value) {
                 animation_fold.value.parentScrollChange(event);
             }
             if (home_banner.value) {
                 home_banner.value.parentScrollChange(event);
+            }
+            if (login_span.value) {
+                login_span.value.parentScrollChange(event);
             }
         });
     }
