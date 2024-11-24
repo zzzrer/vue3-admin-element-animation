@@ -12,15 +12,17 @@
         </div> -->
         <el-row>
             <el-col :xs='24' :sm='12' :lg='12'>
-                <div class="h50vh">
-                    <img class="img w_100 h_100" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
+                <div class="h50vh position_relative ">
+                    <img class="img w_100 h_100 left_box" ref="left_box"
+                        src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
                 </div>
             </el-col>
             <el-col :xs='24' :sm='12' :lg='12'>
                 <div class="h50vh position_relative">
-                    <div class="fold_text left">
+                    <div class="fold_text left right_box" ref="right_box">
                         <h2 class="title">Holiday Season Services</h2>
-                        <p class="content_text">Embrace the Bvlgari holiday spirit with iconic gifts full of magic and sparkle.</p>
+                        <p class="content_text">Embrace the Bvlgari holiday spirit with iconic gifts full of magic and
+                            sparkle.</p>
                         <a href="" class="link">Discover the services</a>
                     </div>
                 </div>
@@ -28,29 +30,33 @@
 
             <el-col :xs='24' :sm='12' :lg='12' v-show="width">
                 <div class="h50vh position_relative">
-                    <div class="fold_text right">
+                    <div class="fold_text right left_box" ref="left_box_1">
                         <h2 class="title">Holiday Season Services</h2>
-                        <p class="content_text">Embrace the Bvlgari holiday spirit with iconic gifts full of magic and sparkle.</p>
+                        <p class="content_text">Embrace the Bvlgari holiday spirit with iconic gifts full of magic and
+                            sparkle.</p>
                         <a href="" class="link">Discover the services</a>
                     </div>
                 </div>
             </el-col>
             <el-col :xs='24' :sm='12' :lg='12' v-show="width">
-                <div class="h50vh">
-                    <img class="img w_100 h_100" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
+                <div class="h50vh position_relative ">
+                    <img class="img w_100 h_100 right_box" ref="right_box_1"
+                        src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
                 </div>
             </el-col>
 
             <el-col :xs='24' :sm='12' :lg='12' v-show="!width">
-                <div class="h50vh">
-                    <img class="img w_100 h_100" src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
+                <div class="h50vh position_relative ">
+                    <img class="img w_100 h_100 left_box" ref="left_box_2"
+                        src="../../assets/img/a-24-xmas-serpenti-product02-1080x1080.jpg" alt="">
                 </div>
             </el-col>
             <el-col :xs='24' :sm='12' :lg='12' v-show="!width">
                 <div class="h50vh position_relative">
-                    <div class="fold_text right">
+                    <div class="fold_text right right_box" ref="right_box_2">
                         <h2 class="title">Holiday Season Services</h2>
-                        <p class="content_text">Embrace the Bvlgari holiday spirit with iconic gifts full of magic and sparkle.</p>
+                        <p class="content_text">Embrace the Bvlgari holiday spirit with iconic gifts full of magic and
+                            sparkle.</p>
                         <a href="" class="link">Discover the services</a>
                     </div>
                 </div>
@@ -64,10 +70,59 @@
 import { ref } from "vue";
 const card_close = ref(null);
 const left_box = ref(null);
+const left_box_1 = ref(null);
+const left_box_2 = ref(null);
 const right_box = ref(null);
+const right_box_1 = ref(null);
+const right_box_2 = ref(null);
 const text_box = ref(null);
 const width = ref(true);
+const playPhoneAnimation = () => {
+    const leftTop = left_box.value?.getBoundingClientRect().top ?? 0;
+    const closeHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+    const percent = leftTop / closeHeight;
+    if (1 > percent && percent >= 0 && left_box.value) {
+        left_box.value.style.right =
+            (percent < 0.2 ? 0 : percent) * 100 + "%";
+        left_box_1.value.style.right =
+            (percent < 0.2 ? 0 : percent) * 100 + "%";
+        right_box.value.style.left =
+            (percent < 0.2 ? 0 : percent) * 100 + "%";
+        right_box_1.value.style.left =
+            (percent < 0.2 ? 0 : percent) * 100 + "%";
+    }
 
+    const rightTop = left_box_2.value?.getBoundingClientRect().top ?? 0;
+    const percentTow = rightTop / closeHeight;
+    console.log('percentTow :>> ', percentTow);
+    if (1 > percentTow && percentTow >= 0 && left_box_2.value) {
+        left_box_2.value.style.right =
+            (percentTow < 0.2 ? 0 : percentTow) * 100 + "%";
+        right_box_2.value.style.left =
+            (percentTow < 0.2 ? 0 : percentTow) * 100 + "%";
+    }
+}
+const playWindowsAnimation = () => {
+    const closeTop = card_close.value?.getBoundingClientRect().top ?? 0;
+    const closeHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+    const percent = closeTop / closeHeight;
+    if (1 > percent && percent >= 0 && left_box.value) {
+        left_box.value.style.right =
+            (percent < 0.2 ? 0 : percent) * 100 + "%";
+        left_box_1.value.style.right =
+            (percent < 0.2 ? 0 : percent) * 100 + "%";
+        left_box_2.value.style.right =
+            (percent < 0.2 ? 0 : percent) * 100 + "%";
+        right_box.value.style.left =
+            (percent < 0.2 ? 0 : percent) * 100 + "%";
+        right_box_1.value.style.left =
+            (percent < 0.2 ? 0 : percent) * 100 + "%";
+        right_box_2.value.style.left =
+            (percent < 0.2 ? 0 : percent) * 100 + "%";
+    }
+}
 const parentScrollChange = (event) => {
     // if (event) {
     //     const closeTop = card_close.value?.getBoundingClientRect().top ?? 0;
@@ -81,12 +136,19 @@ const parentScrollChange = (event) => {
     //             (percent < 0.2 ? 0 : percent) * 100 + "%";
     //     }
     // }
+
     const innerWidth =
         window.innerWidth || document.documentElement.clientWidth;
     if (innerWidth < 769) {
         width.value = false;
+        if (event) {
+            playPhoneAnimation()
+        }
     } else {
         width.value = true;
+        if (event) {
+            playWindowsAnimation()
+        }
     }
 };
 defineExpose({
@@ -98,25 +160,31 @@ defineExpose({
 div {
     box-sizing: border-box;
 }
+
 .card_close {
     width: 100vw;
     z-index: 4;
 }
+
 .flex {
     display: flex;
 }
+
 .position_relative {
     position: relative;
 }
+
 .title {
     font-size: 2.25rem;
     font-weight: 300;
     line-height: 1.22;
     margin-bottom: 0.5rem;
 }
+
 .content_text {
     margin-bottom: 1.5rem;
 }
+
 .link {
     margin-top: 3.5rem;
     line-height: 1.375rem;
@@ -125,25 +193,34 @@ div {
     min-height: 3rem;
     color: #000;
 }
+
 .w_50 {
     width: 50%;
 }
+
 .h_50 {
     height: 50%;
 }
+
 .h50vh {
     height: 50vh;
 }
+
 .inline_block {
     display: inline-block;
 }
+
 .img {
+    position: absolute;
     width: 100%;
     object-fit: cover;
+    transition: all 0.5s ease-in-out;
 }
+
 .position_absolute {
     position: absolute;
 }
+
 .right_box {
     transition: all 1s ease-in-out;
     margin: auto;
@@ -152,6 +229,7 @@ div {
     left: 100%;
     padding: 2.5rem 5rem;
 }
+
 .left_box {
     transition: all 1s ease-in-out;
     margin: auto;
@@ -159,21 +237,27 @@ div {
     bottom: 0px;
     right: 100%;
 }
+
 .h_100 {
     height: 100%;
 }
+
 .h_auto {
     height: fit-content;
 }
+
 .bg_fff {
     background-color: #fff !important;
 }
+
 .overflow_hidden {
     overflow: hidden;
 }
+
 .w_100 {
     width: 100%;
 }
+
 .fold_text {
     position: absolute;
     height: fit-content;
@@ -182,22 +266,29 @@ div {
     bottom: 0px;
     padding: 2.5rem 5rem;
     width: 100%;
+    transition: all 0.5s ease-in-out;
 }
+
+/* 
 .left {
     left: 0px;
 }
+
 .right {
     right: 0px;
-}
+} */
+
 .fold_text h2 {
     font-size: 2.25rem;
     font-weight: 300;
     line-height: 1.22;
     margin-bottom: 0.5rem;
 }
+
 .fold_text p {
     margin-bottom: 1.5rem;
 }
+
 .fold_text a {
     margin-top: 3.5rem;
     line-height: 1.375rem;
@@ -206,6 +297,7 @@ div {
     min-height: 3rem;
     color: #000;
 }
+
 .el-col {
     height: 50%;
 }
